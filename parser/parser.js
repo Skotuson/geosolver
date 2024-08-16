@@ -14,6 +14,8 @@ class Parser {
     }
 
     Start() {
+        // Kickstart the lexer
+        this.lexer.get();
         switch (this.lexer.peek()) {
             case TOK_NORTH:
                 /* rule 1: Start -> n Exprs ° Exprs , Exprs ' e Exprs ° Exprs , Exprs ' */
@@ -35,6 +37,7 @@ class Parser {
             case TOK_EOF:
                 break;
             default:
+                console.log(this.lexer.peek())
                 throw new Error("Parsing error");
         }
     }
@@ -74,13 +77,13 @@ class Parser {
         switch (this.lexer.peek()) {
             case TOK_PLUS:
                 /* rule 5: Expr2R -> + Expr1 Expr2R */
-                this.lexer(TOK_PLUS);
+                this.match(TOK_PLUS);
                 this.Expr1();
                 this.Expr2R();
                 break;
             case TOK_MINUS:
                 /* rule 6: Expr2R -> - Expr1 Expr2R */
-                this.lexer(TOK_MINUS);
+                this.match(TOK_MINUS);
                 this.Expr1();
                 this.Expr2R();
                 break;
@@ -114,7 +117,7 @@ class Parser {
         switch (this.lexer.peek()) {
             case TOK_MULTIPLICATION:
                 /* rule 9: Expr1R -> * Expr Expr1R */
-                this.lexer(TOK_MULTIPLICATION);
+                this.match(TOK_MULTIPLICATION);
                 this.Expr1();
                 this.Expr2R();
                 break;
@@ -143,13 +146,13 @@ class Parser {
         switch (this.lexer.peek()) {
             case TOK_NUMBER:
                 /* rule 12: Expr -> number */
-                this.lexer.match(TOK_NUMBER);
+                this.match(TOK_NUMBER);
                 break;
             case TOK_LPAR:
                 /* rule 13: Expr -> ( Expr2 ) */
-                this.lexer(TOK_LPAR);
+                this.match(TOK_LPAR);
                 this.Expr2();
-                this.lexer(TOK_RPAR);
+                this.match(TOK_RPAR);
                 break;
             default:
                 throw new Error("Parsing error");
