@@ -100,7 +100,7 @@ label {
 .button-container {
     display: flex;
     gap: 15px;
-    margin: 20px 0;
+    margin: 10px 0;
     padding: 10px;
     border: 2px solid #ddd;
     border-radius: 10px;
@@ -122,7 +122,7 @@ label {
     max-height: 70vh;
     margin: 20px auto;
     background-color: #ffffff;
-    padding: 20px;
+    padding: 10px;
     border-radius: 10px;
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
     display: flex;
