@@ -6,11 +6,6 @@ class Parser {
     }
 
     match(token) {
-        //TODO: DEBUG
-        if (SYMBOLS.has(token)) {
-            console.log(SYMBOLS.get(token))
-        }
-
         if (this.lexer.peek() != token) {
             throw new Error("Malformed coordinates");
         }
@@ -37,7 +32,7 @@ class Parser {
 
                 this.match(TOK_MINUTE);
                 this.coords += SYMBOLS.get(TOK_MINUTE) + " ";
-                
+
                 this.match(TOK_EAST);
                 this.coords += "E";
                 this.Exprs();
@@ -66,7 +61,7 @@ class Parser {
         switch (this.lexer.peek()) {
             case TOK_NUMBER:
             case TOK_LPAR:
-                /* rule 2: Exprs -> Expr2 Exprs */             
+                /* rule 2: Exprs -> Expr2 Exprs */
                 this.coords += this.Expr2();
                 this.coords += this.Exprs();
                 return "";
