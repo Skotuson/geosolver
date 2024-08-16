@@ -46,8 +46,10 @@ function calculate() {
     for (const l of letters) {
         let letter = l.querySelector("input").id;
         let val = document.getElementById(letter).value;
-        coordsString = coordsString.replace(letter, val);
+        coordsString = coordsString.replaceAll(letter, val);
     }
+
+    console.log(coordsString);
 
     let parser = new Parser(coordsString);
     parser.Start();
