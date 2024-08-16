@@ -2,8 +2,7 @@
 class Parser {
     constructor(str) {
         this.lexer = new Lexer(str)
-        this.north = "";
-        this.east = "";
+        this.coords = "";
     }
 
     match(token) {
@@ -25,19 +24,34 @@ class Parser {
             case TOK_NORTH:
                 /* rule 1: Start -> n Exprs ° Exprs , Exprs ' e Exprs ° Exprs , Exprs ' */
                 this.match(TOK_NORTH);
+                this.coords += "N";
                 this.Exprs();
+
                 this.match(TOK_DEGREE);
+                this.coords += SYMBOLS.get(TOK_DEGREE);
                 this.Exprs();
+
                 this.match(TOK_FLOATING);
+                this.coords += ',';
                 this.Exprs();
+
                 this.match(TOK_MINUTE);
+                this.coords += SYMBOLS.get(TOK_MINUTE) + " ";
+                
                 this.match(TOK_EAST);
+                this.coords += "E";
                 this.Exprs();
+
                 this.match(TOK_DEGREE);
+                this.coords += SYMBOLS.get(TOK_DEGREE);
                 this.Exprs();
+
                 this.match(TOK_FLOATING);
+                this.coords += ',';
                 this.Exprs();
+
                 this.match(TOK_MINUTE);
+                this.coords += SYMBOLS.get(TOK_MINUTE);
                 break;
             case TOK_EOF:
                 break;
@@ -48,12 +62,13 @@ class Parser {
     }
 
     Exprs() {
+        console.log(this.coords)
         switch (this.lexer.peek()) {
             case TOK_NUMBER:
             case TOK_LPAR:
-                /* rule 2: Exprs -> Expr2 Exprs */
-                this.north += this.Expr2();
-                this.north += this.Exprs();
+                /* rule 2: Exprs -> Expr2 Exprs */             
+                this.coords += this.Expr2();
+                this.coords += this.Exprs();
                 return "";
             case TOK_DEGREE:
             case TOK_FLOATING:

@@ -52,7 +52,7 @@ function calculate() {
     let parser = new Parser(coordsString);
     parser.Start();
 
-    window.alert(parser.north + " " + parser.east);
+    window.alert(parser.coords);
 }
 
 function remove() {
