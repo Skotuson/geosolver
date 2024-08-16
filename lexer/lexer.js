@@ -11,8 +11,18 @@ const TOK_RPAR = -10;
 const TOK_MINUTE = -11;
 const TOK_EOF = -12;
 const TOK_UNDEFINED = - 13;
+const TOK_PERIOD = -14;
 
-//TODO: hashmap for symbol tokens
+let TOKENS = new Map();
+TOKENS.set('°', TOK_DEGREE);
+TOKENS.set('+', TOK_PLUS);
+TOKENS.set('-', TOK_MINUS);
+TOKENS.set('*', TOK_MULTIPLICATION);
+TOKENS.set('/', TOK_DIVISION);
+TOKENS.set('(', TOK_LPAR);
+TOKENS.set(')', TOK_RPAR);
+TOKENS.set('\'', TOK_MINUTE);
+TOKENS.set('.', TOK_PERIOD);
 
 class Lexer {
     constructor(str) {
@@ -52,46 +62,17 @@ class Lexer {
             this.tok = TOK_NORTH;
         }
 
-        else if (!isNaN(front)) {
-            return this.tok = this.lexNumber();
-        }
-
         else if (front == 'E' && this.gcs) {
             this.gcs = false;
             this.tok = TOK_EAST;
         }
 
-        else if (front == '°') {
-            this.tok = TOK_DEGREE;
+        else if (!isNaN(front)) {
+            return this.tok = this.lexNumber();
         }
 
-        else if (front == '\'') {
-            this.gcs = true;
-            this.tok = TOK_MINUTE;
-        }
-
-        else if (front == '+') {
-            this.tok = TOK_PLUS;
-        }
-
-        else if (front == '-') {
-            this.tok = TOK_MINUS;
-        }
-
-        else if (front == '*') {
-            this.tok = TOK_MULTIPLICATION;
-        }
-
-        else if (front == '/') {
-            this.tok = TOK_DIVISION;
-        }
-
-        else if (front == '(') {
-            this.tok = TOK_LPAR;
-        }
-
-        else if (front == ')') {
-            this.tok = TOK_RPAR;
+        else if (TOKENS.has(front)) {
+            this.tok = TOKENS.get(front);
         }
 
         // Whole input has been lexed
@@ -117,3 +98,5 @@ let lexerCorrect = new Lexer("N 50°40.(1555-1037) E 15° 43.(1604-924)");
 
 console.assert(lexerCorrect.get() == TOK_NORTH)
 console.assert(lexerCorrect.get() == TOK_NUMBER && lexerCorrect.number() == 50)
+console.assert(lexerCorrect.get() == TOK_DEGREE)
+console.assert(lexerCorrect.get() == TOK_NUMBER && lexerCorrect.number() == 40)
