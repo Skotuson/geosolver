@@ -11,7 +11,7 @@ const TOK_RPAR = -10;
 const TOK_MINUTE = -11;
 const TOK_EOF = -12;
 const TOK_UNDEFINED = - 13;
-const TOK_PERIOD = -14;
+const TOK_FLOATING = -14;
 
 let TOKENS = new Map();
 TOKENS.set('°', TOK_DEGREE);
@@ -22,7 +22,8 @@ TOKENS.set('/', TOK_DIVISION);
 TOKENS.set('(', TOK_LPAR);
 TOKENS.set(')', TOK_RPAR);
 TOKENS.set('\'', TOK_MINUTE);
-TOKENS.set('.', TOK_PERIOD);
+TOKENS.set('.', TOK_FLOATING);
+TOKENS.set(',', TOK_FLOATING);
 
 class Lexer {
     constructor(str) {
@@ -73,6 +74,9 @@ class Lexer {
 
         else if (TOKENS.has(front)) {
             this.tok = TOKENS.get(front);
+            if(TOKENS.get(front) == TOK_MINUTE) {
+                this.gcs = true;
+            }
         }
 
         // Whole input has been lexed
@@ -94,9 +98,69 @@ class Lexer {
 }
 
 // Simple console asserts
-let lexerCorrect = new Lexer("N 50°40.(1555-1037) E 15° 43.(1604-924)");
-
+let lexerCorrect = new Lexer("N 50°40.(1555-1037)' E 15° 43.(1604-924)'");
 console.assert(lexerCorrect.get() == TOK_NORTH)
 console.assert(lexerCorrect.get() == TOK_NUMBER && lexerCorrect.number() == 50)
 console.assert(lexerCorrect.get() == TOK_DEGREE)
 console.assert(lexerCorrect.get() == TOK_NUMBER && lexerCorrect.number() == 40)
+console.assert(lexerCorrect.get() == TOK_FLOATING)
+console.assert(lexerCorrect.get() == TOK_LPAR)
+console.assert(lexerCorrect.get() == TOK_NUMBER && lexerCorrect.number() == 1555)
+console.assert(lexerCorrect.get() == TOK_MINUS)
+console.assert(lexerCorrect.get() == TOK_NUMBER && lexerCorrect.number() == 1037)
+console.assert(lexerCorrect.get() == TOK_RPAR)
+console.assert(lexerCorrect.get() == TOK_MINUTE)
+console.assert(lexerCorrect.get() == TOK_EAST)
+console.assert(lexerCorrect.get() == TOK_NUMBER && lexerCorrect.number() == 15)
+console.assert(lexerCorrect.get() == TOK_DEGREE)
+console.assert(lexerCorrect.get() == TOK_NUMBER && lexerCorrect.number() == 43)
+console.assert(lexerCorrect.get() == TOK_FLOATING)
+console.assert(lexerCorrect.get() == TOK_LPAR)
+console.assert(lexerCorrect.get() == TOK_NUMBER && lexerCorrect.number() == 1604)
+console.assert(lexerCorrect.get() == TOK_MINUS)
+console.assert(lexerCorrect.get() == TOK_NUMBER && lexerCorrect.number() == 924)
+console.assert(lexerCorrect.get() == TOK_RPAR)
+console.assert(lexerCorrect.get() == TOK_MINUTE)
+console.assert(lexerCorrect.get() == TOK_EOF)
+
+let lexerUndefined = new Lexer("N49°32,(5-D)(2)(13+0H)'E15°21,(F-1)(D)(16-13)'");
+console.assert(lexerUndefined.get() == TOK_NORTH)
+console.assert(lexerUndefined.get() == TOK_NUMBER && lexerUndefined.number() == 49)
+console.assert(lexerUndefined.get() == TOK_DEGREE)
+console.assert(lexerUndefined.get() == TOK_NUMBER && lexerUndefined.number() == 32)
+console.assert(lexerUndefined.get() == TOK_FLOATING)
+console.assert(lexerUndefined.get() == TOK_LPAR)
+console.assert(lexerUndefined.get() == TOK_NUMBER && lexerUndefined.number() == 5)
+console.assert(lexerUndefined.get() == TOK_MINUS)
+console.assert(lexerUndefined.get() == TOK_UNDEFINED)
+console.assert(lexerUndefined.get() == TOK_RPAR)
+console.assert(lexerUndefined.get() == TOK_LPAR)
+console.assert(lexerUndefined.get() == TOK_NUMBER && lexerUndefined.number() == 2)
+console.assert(lexerUndefined.get() == TOK_RPAR)
+console.assert(lexerUndefined.get() == TOK_LPAR)
+console.assert(lexerUndefined.get() == TOK_NUMBER && lexerUndefined.number() == 13)
+console.assert(lexerUndefined.get() == TOK_PLUS)
+console.assert(lexerUndefined.get() == TOK_NUMBER && lexerUndefined.number() == 0)
+console.assert(lexerUndefined.get() == TOK_UNDEFINED)
+console.assert(lexerUndefined.get() == TOK_RPAR)
+console.assert(lexerUndefined.get() == TOK_MINUTE)
+console.assert(lexerUndefined.get() == TOK_EAST)
+console.assert(lexerUndefined.get() == TOK_NUMBER && lexerUndefined.number() == 15)
+console.assert(lexerUndefined.get() == TOK_DEGREE)
+console.assert(lexerUndefined.get() == TOK_NUMBER && lexerUndefined.number() == 21)
+console.assert(lexerUndefined.get() == TOK_FLOATING)
+console.assert(lexerUndefined.get() == TOK_LPAR)
+console.assert(lexerUndefined.get() == TOK_UNDEFINED)
+console.assert(lexerUndefined.get() == TOK_MINUS)
+console.assert(lexerUndefined.get() == TOK_NUMBER && lexerUndefined.number() == 1)
+console.assert(lexerUndefined.get() == TOK_RPAR)
+console.assert(lexerUndefined.get() == TOK_LPAR)
+console.assert(lexerUndefined.get() == TOK_UNDEFINED)
+console.assert(lexerUndefined.get() == TOK_RPAR)
+console.assert(lexerUndefined.get() == TOK_LPAR)
+console.assert(lexerUndefined.get() == TOK_NUMBER && lexerUndefined.number() == 16)
+console.assert(lexerUndefined.get() == TOK_MINUS)
+console.assert(lexerUndefined.get() == TOK_NUMBER && lexerUndefined.number() == 13)
+console.assert(lexerUndefined.get() == TOK_RPAR)
+console.assert(lexerUndefined.get() == TOK_MINUTE)
+console.assert(lexerUndefined.get() == TOK_EOF)
