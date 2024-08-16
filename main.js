@@ -41,5 +41,6 @@ function calculate() {
 }
 
 function remove() {
-    alert("Removing!");
+    // Decrement the letter index
+    lidx--;
 }

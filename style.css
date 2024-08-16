@@ -1,64 +1,93 @@
-        .plus-button {
-            display: inline-block;
-            padding: 10px 15px;
-            font-size: 20px;
-            font-weight: bold;
-            color: white;
-            background-color: green;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+body {
+    background: linear-gradient(to bottom, #e0f7fa, #b2ebf2);
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    text-align: center;
+}
 
-        .plus-button:hover {
-            background-color: darkgreen;
-        }
+header {
+    background-color: #003366;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    font-size: 28px;
+    border-radius: 0 0 10px 10px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
 
-        .equal-button {
-            display: inline-block;
-            padding: 10px 15px;
-            font-size: 20px;
-            font-weight: bold;
-            color: white;
-            background-color: orange;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin: 10px 5px;
-        }
+.plus-button {
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    background-color: green;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
-        .equal-button:hover {
-            background-color: darkorange;
-        }
+.plus-button:hover {
+    background-color: darkgreen;
+}
 
-        .minus-button {
-            display: inline-block;
-            padding: 10px 15px;
-            font-size: 20px;
-            font-weight: bold;
-            color: white;
-            background-color: red;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin: 10px 5px;
-        }
+.equal-button {
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    background-color: orange;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px 5px;
+}
 
-        .minus-button:hover {
-            background-color: darkred;
-        }
+.equal-button:hover {
+    background-color: darkorange;
+}
+
+.minus-button {
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    background-color: red;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px 5px;
+}
+
+.minus-button:hover {
+    background-color: darkred;
+}
 
 
-        .coords-div {
-            padding: 15px;
-            background-color: #f0f0f0;
-            border: 2px solid #ccc;
-            border-radius: 5px;
-            margin-bottom: 15px;
-            font-size: 18px;
-        }
+.coords-div {
+    padding: 15px;
+    background-color: #f0f0f0;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
 
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-        }
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+}
