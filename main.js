@@ -12,13 +12,13 @@ function add() {
     newDiv.id = `${letter}-div`;
 
     let newLabel = document.createElement('label');
-    newLabel.setAttribute('for', letter.toLowerCase());
+    newLabel.setAttribute('for', letter);
     newLabel.textContent = `${letter}:`;
 
     let newInput = document.createElement('input');
     newInput.type = 'text';
-    newInput.id = letter.toLowerCase();
-    newInput.name = letter.toLowerCase();
+    newInput.id = letter;
+    newInput.name = letter;
 
     newDiv.appendChild(newLabel);
     newDiv.appendChild(newInput);
@@ -37,7 +37,19 @@ function add() {
 }
 
 function calculate() {
-    alert("Calculating!");
+    let letters = Array.from(document.getElementsByClassName('coords-div'));
+    let coordsString = document.getElementById("inputDiv").querySelector("input").value;
+    if (!coordsString.length) {
+        coordsString = document.getElementById("inputDiv").querySelector("input").placeholder;
+    }
+
+    for (const l of letters) {
+        let letter = l.querySelector("input").id;
+        let val = document.getElementById(letter).value;
+        coordsString = coordsString.replace(letter, val);
+    }
+
+    window.alert(coordsString);
 }
 
 function remove() {
