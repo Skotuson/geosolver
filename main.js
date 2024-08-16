@@ -27,16 +27,19 @@ function add() {
     let addButton = document.getElementById('addButton');
     let calculateButton = document.getElementById('calculateButton');
     let removeButton = document.getElementById('removeButton');
+    let inputDiv = document.getElementById("inputDiv");
 
     container.removeChild(addButton);
     container.removeChild(calculateButton);
     container.removeChild(removeButton);
+    container.removeChild(inputDiv);
 
     container.appendChild(newDiv);
 
     container.appendChild(addButton);
     container.appendChild(calculateButton);
     container.appendChild(removeButton);
+    container.appendChild(inputDiv);
 }
 
 function calculate() {

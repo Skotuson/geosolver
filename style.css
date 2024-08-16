@@ -100,3 +100,32 @@ label {
     border-radius: 10px;
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
 }
+
+.input-div {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-div label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.input-div input {
+    width: 95%;
+    height: 20%;
+    max-width: 100%;
+    padding: 8px;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+}
