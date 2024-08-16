@@ -25,9 +25,6 @@ function add() {
 
     let container = document.getElementById('container');
     let buttonContainer = document.getElementById('button-container');
-    let addButton = document.getElementById('addButton');
-    let calculateButton = document.getElementById('calculateButton');
-    let removeButton = document.getElementById('removeButton');
     let inputDiv = document.getElementById("inputDiv");
 
     container.removeChild(buttonContainer);
