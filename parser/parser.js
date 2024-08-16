@@ -32,6 +32,8 @@ class Parser {
                 this.Exprs();
                 this.match(TOK_MINUTE);
                 break;
+            case TOK_EOF:
+                break;
             default:
                 throw new Error("Parsing error");
         }
