@@ -42,6 +42,7 @@ label {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin: 10px 5px;
 }
 
 .plus-button:hover {
@@ -82,6 +83,11 @@ label {
     background-color: darkred;
 }
 
+.button-container {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0;
+}
 
 .coords-div {
     padding: 15px;
@@ -94,11 +100,16 @@ label {
 
 .container {
     max-width: 600px;
+    max-height: 70vh;
     margin: 20px auto;
     background-color: #ffffff;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
 }
 
 .input-div {

@@ -24,21 +24,18 @@ function add() {
     newDiv.appendChild(newInput);
 
     let container = document.getElementById('container');
+    let buttonContainer = document.getElementById('button-container');
     let addButton = document.getElementById('addButton');
     let calculateButton = document.getElementById('calculateButton');
     let removeButton = document.getElementById('removeButton');
     let inputDiv = document.getElementById("inputDiv");
 
-    container.removeChild(addButton);
-    container.removeChild(calculateButton);
-    container.removeChild(removeButton);
+    container.removeChild(buttonContainer);
     container.removeChild(inputDiv);
 
     container.appendChild(newDiv);
 
-    container.appendChild(addButton);
-    container.appendChild(calculateButton);
-    container.appendChild(removeButton);
+    container.appendChild(buttonContainer);
     container.appendChild(inputDiv);
 }
 
