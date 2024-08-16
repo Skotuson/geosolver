@@ -16,9 +16,10 @@ class Parser {
         // Kickstart the lexer
         this.lexer.get();
         switch (this.lexer.peek()) {
-            case TOK_NORTH:
+            case TOK_NUMBER:
+            case TOK_LPAR:
+            case TOK_DEGREE:
                 /* rule 1: Start -> n Exprs ° Exprs , Exprs ' e Exprs ° Exprs , Exprs ' */
-                this.match(TOK_NORTH);
                 this.coords += "N";
                 this.Exprs();
 
@@ -33,7 +34,6 @@ class Parser {
                 this.match(TOK_MINUTE);
                 this.coords += SYMBOLS.get(TOK_MINUTE) + " ";
 
-                this.match(TOK_EAST);
                 this.coords += "E";
                 this.Exprs();
 
