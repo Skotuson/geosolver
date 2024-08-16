@@ -1,16 +1,64 @@
-        
-.plus-button {
-    display: inline-block;
-    padding: 10px 15px;
-    font-size: 20px;
-    font-weight: bold;
-    color: white;
-    background-color: green;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
+        .plus-button {
+            display: inline-block;
+            padding: 10px 15px;
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            background-color: green;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
 
-.plus-button:hover {
-    background-color: darkgreen;
-}
+        .plus-button:hover {
+            background-color: darkgreen;
+        }
+
+        .equal-button {
+            display: inline-block;
+            padding: 10px 15px;
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            background-color: orange;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+
+        .equal-button:hover {
+            background-color: darkorange;
+        }
+
+        .minus-button {
+            display: inline-block;
+            padding: 10px 15px;
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            background-color: red;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+
+        .minus-button:hover {
+            background-color: darkred;
+        }
+
+
+        .coords-div {
+            padding: 15px;
+            background-color: #f0f0f0;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }

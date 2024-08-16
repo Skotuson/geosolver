@@ -1,18 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GeoSolver 🌍</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <script defer src="main.js"></script>
 
-    <div>
-        <label for="a">A:</label>
-        <input type="text" id="a" name="a">
+    <div class="container" id="container">
+
+        <div class="coords-div">
+            <label for="a">A:</label>
+            <input type="text" id="a" name="a">
+        </div>
+
+        <button class="plus-button" id="addButton" onclick="add()">+</button>
+        <button class="equal-button" id="calculateButton" onclick="calculate()">=</button>
+        <button class="minus-button" id="removeButton" onclick="remove()">-</button>
     </div>
 
 </body>
+
 </html>
