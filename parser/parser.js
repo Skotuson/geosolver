@@ -7,6 +7,11 @@ class Parser {
     }
 
     match(token) {
+        //TODO: DEBUG
+        if (SYMBOLS.has(token)) {
+            console.log(SYMBOLS.get(token))
+        }
+
         if (this.lexer.peek() != token) {
             throw new Error("Malformed coordinates");
         }
@@ -38,7 +43,7 @@ class Parser {
                 break;
             default:
                 console.log(this.lexer.peek())
-                throw new Error("Parsing error");
+                throw new Error("Start Parsing error");
         }
     }
 
@@ -56,7 +61,8 @@ class Parser {
                 /* rule 3: Exprs ->  */
                 break;
             default:
-                throw new Error("Parsing error");
+                console.log(this.lexer.peek())
+                throw new Error("Exprs Parsing error");
         }
     }
 
@@ -69,7 +75,8 @@ class Parser {
                 this.Expr2R();
                 break;
             default:
-                throw new Error("Parsing error");
+                console.log(this.lexer.peek())
+                throw new Error("Expr2 Parsing error");
         }
     }
 
@@ -96,7 +103,8 @@ class Parser {
                 /* rule 7: Expr2R ->  */
                 break;
             default:
-                throw new Error("Parsing error");
+                console.log(this.lexer.peek())
+                throw new Error("Expr2R Parsing error");
         }
     }
 
@@ -109,7 +117,8 @@ class Parser {
                 this.Expr1R();
                 break;
             default:
-                throw new Error("Parsing error");
+                console.log(this.lexer.peek())
+                throw new Error("Expr1 Parsing error");
         }
     }
 
@@ -138,7 +147,8 @@ class Parser {
                 /* rule 11: Expr1R ->  */
                 break;
             default:
-                throw new Error("Parsing error");
+                console.log(this.lexer.peek())
+                throw new Error("Expr1R Parsing error");
         }
     }
 
@@ -155,7 +165,8 @@ class Parser {
                 this.match(TOK_RPAR);
                 break;
             default:
-                throw new Error("Parsing error");
+                console.log(this.lexer.peek())
+                throw new Error("Expr Parsing error");
         }
     }
 }
