@@ -52,14 +52,14 @@ class Parser {
             case TOK_NUMBER:
             case TOK_LPAR:
                 /* rule 2: Exprs -> Expr2 Exprs */
-                this.Expr2();
-                this.Exprs();
-                break;
+                this.north += this.Expr2();
+                this.north += this.Exprs();
+                return "";
             case TOK_DEGREE:
             case TOK_FLOATING:
             case TOK_MINUTE:
                 /* rule 3: Exprs ->  */
-                break;
+                return "";
             default:
                 console.log(this.lexer.peek())
                 throw new Error("Exprs Parsing error");
@@ -71,29 +71,24 @@ class Parser {
             case TOK_NUMBER:
             case TOK_LPAR:
                 /* rule 4: Expr2 -> Expr1 Expr2R */
-                this.Expr1();
-                this.Expr2R();
-                break;
+                let val = this.Expr2R(this.Expr1())
+                return val;
             default:
                 console.log(this.lexer.peek())
                 throw new Error("Expr2 Parsing error");
         }
     }
 
-    Expr2R() {
+    Expr2R(lhs) {
         switch (this.lexer.peek()) {
             case TOK_PLUS:
                 /* rule 5: Expr2R -> + Expr1 Expr2R */
                 this.match(TOK_PLUS);
-                this.Expr1();
-                this.Expr2R();
-                break;
+                return lhs + this.Expr1R(this.Expr());
             case TOK_MINUS:
                 /* rule 6: Expr2R -> - Expr1 Expr2R */
                 this.match(TOK_MINUS);
-                this.Expr1();
-                this.Expr2R();
-                break;
+                return lhs - this.Expr1R(this.Expr());
             case TOK_NUMBER:
             case TOK_LPAR:
             case TOK_DEGREE:
@@ -101,7 +96,7 @@ class Parser {
             case TOK_MINUTE:
             case TOK_RPAR:
                 /* rule 7: Expr2R ->  */
-                break;
+                return lhs;
             default:
                 console.log(this.lexer.peek())
                 throw new Error("Expr2R Parsing error");
@@ -113,29 +108,23 @@ class Parser {
             case TOK_NUMBER:
             case TOK_LPAR:
                 /* rule 8: Expr1 -> Expr Expr1R */
-                this.Expr();
-                this.Expr1R();
-                break;
+                return this.Expr1R(this.Expr());
             default:
                 console.log(this.lexer.peek())
                 throw new Error("Expr1 Parsing error");
         }
     }
 
-    Expr1R() {
+    Expr1R(lhs) {
         switch (this.lexer.peek()) {
             case TOK_MULTIPLICATION:
                 /* rule 9: Expr1R -> * Expr Expr1R */
                 this.match(TOK_MULTIPLICATION);
-                this.Expr1();
-                this.Expr2R();
-                break;
+                return lhs * this.Expr1R(this.Expr());
             case TOK_DIVISION:
                 /* rule 10: Expr1R -> / Expr Expr1R */
                 this.lexer(TOK_DIVISION);
-                this.Expr1();
-                this.Expr2R();
-                break;
+                return lhs / this.Expr1R(this.Expr());
             case TOK_PLUS:
             case TOK_MINUS:
             case TOK_NUMBER:
@@ -145,7 +134,7 @@ class Parser {
             case TOK_MINUTE:
             case TOK_RPAR:
                 /* rule 11: Expr1R ->  */
-                break;
+                return lhs;
             default:
                 console.log(this.lexer.peek())
                 throw new Error("Expr1R Parsing error");
@@ -156,14 +145,15 @@ class Parser {
         switch (this.lexer.peek()) {
             case TOK_NUMBER:
                 /* rule 12: Expr -> number */
+                let value = this.lexer.number();
                 this.match(TOK_NUMBER);
-                break;
+                return Number.parseInt(value);
             case TOK_LPAR:
                 /* rule 13: Expr -> ( Expr2 ) */
                 this.match(TOK_LPAR);
-                this.Expr2();
+                let result = this.Expr2();
                 this.match(TOK_RPAR);
-                break;
+                return result;
             default:
                 console.log(this.lexer.peek())
                 throw new Error("Expr Parsing error");
