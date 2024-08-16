@@ -1,4 +1,4 @@
-Start -> N Exprs ° Exprs , Exprs ' E Exprs ° Exprs , Exprs '
+Start -> Exprs ° Exprs , Exprs ' Exprs ° Exprs , Exprs '
 Start ->
 
 Exprs -> Expr2 Exprs
