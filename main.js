@@ -43,6 +43,9 @@ function calculate() {
         coordsString = document.getElementById("inputDiv").querySelector("input").placeholder;
     }
 
+    // Remove whitespace
+    coordsString = coordsString.replace(/\s/g, '');
+
     // Remove the N and E used for the Northern latitude and Eastern Longitude.
     coordsString = coordsString.replace(/[NE](\d+°)/g, '$1')
 
