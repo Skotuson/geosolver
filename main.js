@@ -27,13 +27,13 @@ function add() {
     let buttonContainer = document.getElementById('button-container');
     let inputDiv = document.getElementById("inputDiv");
 
-    container.removeChild(buttonContainer);
     container.removeChild(inputDiv);
+    container.removeChild(buttonContainer);
 
     container.appendChild(newDiv);
 
-    container.appendChild(buttonContainer);
     container.appendChild(inputDiv);
+    container.appendChild(buttonContainer);
 }
 
 function calculate() {
