@@ -18,53 +18,79 @@ class Lexer {
     constructor(str) {
         this.str = str;
         this.idx = 0;
+        this.val = 0;
         this.tok = "";
         // Geographic coordinate system, used to distinguish between N a E letters of 
         // latitutde and longtitude and coordinate variables.
         this.gcs = true;
     }
 
+    number() {
+        return this.val;
+    }
+
+    lexNumber() {
+        let char = this.str[this.idx];
+        this.val = 0;
+        while(!isNaN(char)){
+            this.val *= 10;
+            this.val += Number.parseInt(char);
+            char = this.str[++this.idx];
+        }
+        return TOK_NUMBER;
+    }
+
     get() {
-        if (this.str[this.idx] == 'N' && this.gcs) {
+        let front = this.str[this.idx];
+
+        while(/\s/.test(front)) {
+            front = this.str[++this.idx];
+        }
+
+        if (front == 'N' && this.gcs) {
             this.gcs = false;
             this.tok = TOK_NORTH;
         }
 
-        else if (this.str[this.idx] == 'E' && this.gcs) {
+        else if (!isNaN(front)) {
+            return this.tok = this.lexNumber();
+        }
+
+        else if (front == 'E' && this.gcs) {
             this.gcs = false;
             this.tok = TOK_EAST;
         }
 
-        else if (this.str[this.idx] == '°') {
+        else if (front == '°') {
             this.tok = TOK_DEGREE;
         }
 
-        else if (this.str[this.idx] == '\'') {
+        else if (front == '\'') {
             this.gcs = true;
             this.tok = TOK_MINUTE;
         }
 
-        else if (this.str[this.idx] == '+') {
+        else if (front == '+') {
             this.tok = TOK_PLUS;
         }
 
-        else if (this.str[this.idx] == '-') {
+        else if (front == '-') {
             this.tok = TOK_MINUS;
         }
 
-        else if (this.str[this.idx] == '*') {
+        else if (front == '*') {
             this.tok = TOK_MULTIPLICATION;
         }
 
-        else if (this.str[this.idx] == '/') {
+        else if (front == '/') {
             this.tok = TOK_DIVISION;
         }
 
-        else if (this.str[this.idx] == '(') {
+        else if (front == '(') {
             this.tok = TOK_LPAR;
         }
 
-        else if (this.str[this.idx] == ')') {
+        else if (front == ')') {
             this.tok = TOK_RPAR;
         }
 
@@ -86,4 +112,8 @@ class Lexer {
     }
 }
 
-export default Lexer;
+// Simple console asserts
+let lexerCorrect = new Lexer("N 50°40.(1555-1037) E 15° 43.(1604-924)");
+
+console.assert(lexerCorrect.get() == TOK_NORTH)
+console.assert(lexerCorrect.get() == TOK_NUMBER && lexerCorrect.number() == 50)
