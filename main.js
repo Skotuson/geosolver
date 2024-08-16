@@ -49,7 +49,10 @@ function calculate() {
         coordsString = coordsString.replace(letter, val);
     }
 
-    window.alert(coordsString);
+    let parser = new Parser(coordsString);
+    parser.Start();
+
+    window.alert(parser.north + " " + parser.east);
 }
 
 function remove() {
