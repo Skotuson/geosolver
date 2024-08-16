@@ -53,7 +53,5 @@ function remove() {
     let container = document.getElementById('container');
     let toBeRemoved = document.getElementById(`${String.fromCharCode(A_ASCII + lidx)}-div`);
 
-    console.log(toBeRemoved);
-
     container.removeChild(toBeRemoved);
 }
