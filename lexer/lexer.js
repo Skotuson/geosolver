@@ -25,6 +25,8 @@ TOKENS.set('\'', TOK_MINUTE);
 TOKENS.set('.', TOK_FLOATING);
 TOKENS.set(',', TOK_FLOATING);
 
+let SYMBOLS = new Map(Array.from(TOKENS, el => el.reverse()))
+
 class Lexer {
     constructor(str) {
         this.str = str;
