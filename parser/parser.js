@@ -57,14 +57,13 @@ class Parser {
     }
 
     Exprs() {
-        console.log(this.coords)
         switch (this.lexer.peek()) {
             case TOK_NUMBER:
             case TOK_LPAR:
                 /* rule 2: Exprs -> Expr2 Exprs */
                 this.coords += this.Expr2();
-                this.coords += this.Exprs();
-                return "";
+                //this.coords += this.Exprs();
+                return this.Exprs();
             case TOK_DEGREE:
             case TOK_FLOATING:
             case TOK_MINUTE:
