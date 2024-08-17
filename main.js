@@ -55,8 +55,6 @@ function calculate() {
         coordsString = coordsString.replaceAll(letter, val);
     }
 
-    console.log(coordsString);
-
     let parser = new Parser(coordsString);
     parser.Start();
 
