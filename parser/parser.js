@@ -2,6 +2,7 @@
 class Parser {
     constructor(str) {
         this.lexer = new Lexer(str)
+        // 7 6 6 3 5 8 4 2
         this.coords = "";
     }
 
@@ -28,7 +29,7 @@ class Parser {
                 this.Exprs();
 
                 this.match(TOK_FLOATING);
-                this.coords += ',';
+                this.coords += '.';
                 this.Exprs();
 
                 this.match(TOK_MINUTE);
@@ -42,7 +43,7 @@ class Parser {
                 this.Exprs();
 
                 this.match(TOK_FLOATING);
-                this.coords += ',';
+                this.coords += '.';
                 this.Exprs();
 
                 this.match(TOK_MINUTE);
