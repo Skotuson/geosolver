@@ -58,7 +58,7 @@ function calculate() {
     let parser = new Parser(coordsString);
     parser.Start();
 
-    window.alert(parser.coords);
+    window.prompt(parser.coords, `https://www.google.com/maps?q=${parser.latitude + parser.latitude_decimal / 60},${parser.longtitude + parser.longtitude_decimal / 60}`);
 }
 
 function remove() {
