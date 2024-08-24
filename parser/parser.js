@@ -4,6 +4,10 @@ class Parser {
         this.lexer = new Lexer(str)
         // 7 6 6 3 5 8 4 2
         this.coords = "";
+        this.latitude = 0;
+        this.longtitude = 0;
+        this.latitude_decimal = 0;
+        this.longtitude_decimal = 0;
     }
 
     match(token) {
@@ -23,28 +27,34 @@ class Parser {
                 /* rule 1: Start -> n Exprs ° Exprs , Exprs ' e Exprs ° Exprs , Exprs ' */
                 this.coords += "N";
                 this.Exprs();
+                this.latitude += this.lexer.number();
 
                 this.match(TOK_DEGREE);
                 this.coords += SYMBOLS.get(TOK_DEGREE);
                 this.Exprs();
+                this.latitude_decimal += this.lexer.number();
 
                 this.match(TOK_FLOATING);
                 this.coords += '.';
                 this.Exprs();
+                this.latitude_decimal += this.lexer.number();
 
                 this.match(TOK_MINUTE);
                 this.coords += SYMBOLS.get(TOK_MINUTE) + " ";
 
                 this.coords += "E";
                 this.Exprs();
+                this.longtitude += this.lexer.number();
 
                 this.match(TOK_DEGREE);
                 this.coords += SYMBOLS.get(TOK_DEGREE);
                 this.Exprs();
+                this.longtitude_decimal += this.lexer.number();
 
                 this.match(TOK_FLOATING);
                 this.coords += '.';
                 this.Exprs();
+                this.longtitude_decimal += this.lexer.number();
 
                 this.match(TOK_MINUTE);
                 this.coords += SYMBOLS.get(TOK_MINUTE);
