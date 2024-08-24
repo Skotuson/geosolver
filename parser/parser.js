@@ -76,7 +76,6 @@ class Parser {
                 /* rule 2: Exprs -> Expr2 Exprs */
                 let val = this.Expr2();
                 this.coords += val;
-                console.log(val);
                 
                 if (this.north && !this.dec) {
                     this.latitude += val;
