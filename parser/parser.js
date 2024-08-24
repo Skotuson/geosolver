@@ -1,9 +1,15 @@
-
+// 7 6 6 3 5 9 4 2
 class Parser {
     constructor(str) {
         this.lexer = new Lexer(str)
-        // 7 6 6 3 5 8 4 2
         this.coords = "";
+        this.latitude = "";
+        this.longtitude = "";
+        this.latitude_decimal = "";
+        this.longtitude_decimal = "";
+        this.north = true;
+        this.dec = false;
+        this.dec = false;
     }
 
     match(token) {
@@ -23,27 +29,33 @@ class Parser {
                 /* rule 1: Start -> n Exprs ° Exprs , Exprs ' e Exprs ° Exprs , Exprs ' */
                 this.coords += "N";
                 this.Exprs();
-
+        
                 this.match(TOK_DEGREE);
                 this.coords += SYMBOLS.get(TOK_DEGREE);
+                this.dec = true;
                 this.Exprs();
 
                 this.match(TOK_FLOATING);
                 this.coords += '.';
+                this.latitude_decimal += ".";
                 this.Exprs();
 
                 this.match(TOK_MINUTE);
                 this.coords += SYMBOLS.get(TOK_MINUTE) + " ";
 
                 this.coords += "E";
+                this.north = false;
+                this.dec = false;
                 this.Exprs();
 
                 this.match(TOK_DEGREE);
                 this.coords += SYMBOLS.get(TOK_DEGREE);
+                this.dec = true;
                 this.Exprs();
 
                 this.match(TOK_FLOATING);
                 this.coords += '.';
+                this.longtitude_decimal += ".";
                 this.Exprs();
 
                 this.match(TOK_MINUTE);
@@ -62,8 +74,25 @@ class Parser {
             case TOK_NUMBER:
             case TOK_LPAR:
                 /* rule 2: Exprs -> Expr2 Exprs */
-                this.coords += this.Expr2();
-                //this.coords += this.Exprs();
+                let val = this.Expr2();
+                this.coords += val;
+                
+                if (this.north && !this.dec) {
+                    this.latitude += val;
+                }
+
+                else if (this.north && this.dec) {
+                    this.latitude_decimal += val;
+                }
+
+                else if (!this.north && !this.dec) {
+                    this.longtitude += val;
+                }
+
+                else if (!this.north && this.dec) {
+                    this.longtitude_decimal += val;
+                }
+
                 return this.Exprs();
             case TOK_DEGREE:
             case TOK_FLOATING:
@@ -81,8 +110,7 @@ class Parser {
             case TOK_NUMBER:
             case TOK_LPAR:
                 /* rule 4: Expr2 -> Expr1 Expr2R */
-                let val = this.Expr2R(this.Expr1())
-                return val;
+                return this.Expr2R(this.Expr1());
             default:
                 console.log(this.lexer.peek())
                 throw new Error("Expr2 Parsing error");
